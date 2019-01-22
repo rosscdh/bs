@@ -14,6 +14,7 @@ This project will use jinja to sanely let you process and convert yaml without t
 make build
 make shell
 # or
+docker pull rosscdh/oc-bs:latest
 docker run --rm \
        -v ${PWD}:/app \
        -it rosscdh/oc-bs:latest --help
