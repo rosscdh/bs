@@ -1,0 +1,66 @@
+apiVersion: v1
+kind: Template
+metadata:
+  name: mtls-proxy-nlb-service
+  annotations:
+    openshift.io/display-name: "MTLS Proxy NLB services"
+    description: "This template adds the NLB services for the HDS"
+    iconClass: "fa fa-key"
+    tags: "operations,template,mtls,mtls-proxy,nlb"
+    template.openshift.io/provider-display-name: "Mindcurv"
+objects:
+- kind: Service
+  # Required to expose mtls to the AWS-NLB on a specific port
+  apiVersion: v1
+  metadata:
+    labels:
+      app: mtls-proxy
+    name: mtls-proxy-nlb
+  spec:
+    externalTrafficPolicy: Local
+    ports:
+    - name: https
+      port: 443
+      nodePort: {{ NODEPORT |int }}
+      protocol: TCP
+      targetPort: 8443
+    selector:
+      app: mtls-proxy
+      deploymentconfig: mtls-proxy
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+- kind: Service
+  # Required to expose mtls-accountweb to the AWS-NLB on a specific port
+  apiVersion: v1
+  metadata:
+    labels:
+      app: mtls-proxy
+    name: mtls-proxy-nlb-accountweb
+  spec:
+    externalTrafficPolicy: Local
+    ports:
+    - name: https
+      port: 443
+      nodePort: {{ NLB_NODE_PORT_ACCOUNTWEB |int }}
+      protocol: TCP
+      targetPort: 9443
+    selector:
+      app: mtls-proxy
+      deploymentconfig: mtls-proxy
+    sessionAffinity: None
+    type: NodePort
+  status:
+    loadBalancer: {}
+parameters:
+- name: NLB_NODE_PORT
+  displayName: NLB Node Port
+  description: "NLB Node Port"
+  value: ''
+  required: true
+- name: NLB_NODE_PORT_ACCOUNTWEB
+  displayName: NLB Node Port Accountweb
+  description: "NLB Node Port Accountweb"
+  value: ''
+  required: true

@@ -1,6 +1,6 @@
 .PHONY: build login push run shell
 
-NAME     := 'rosscdh/instana-api'
+NAME     := 'rosscdh/oc-bs'
 REGISTRY := 'hub.docker.com'
 TAG      := $$(git log -1 --pretty=%h)
 VERSION  := ${NAME}:${TAG}
@@ -32,6 +32,5 @@ push:
 
 shell:
 	docker run --rm \
-			   -v ${PWD}/.kube:/root/.kube \
-			   -v ${PWD}:/src \
-			   -it --entrypoint=/bin/bash ${LATEST}
+			   -v ${PWD}:/app \
+			   -it --entrypoint=/bin/sh ${LATEST}

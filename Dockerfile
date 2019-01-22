@@ -1,9 +1,11 @@
 FROM python:3-alpine
 
-WORKDIR /src
+ENV PYTHONPATH=.:$PYTHONPATH
 
-ADD ./src /src
+WORKDIR /app
 
-RUN apk --update add httpie && pip install -r requirements.txt
+ADD . /app
 
-ENTRYPOINT ["python"]
+RUN python setup.py develop
+
+ENTRYPOINT ["bs"]

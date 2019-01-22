@@ -1,4 +1,5 @@
 .vscode
+*.log
 __pycache__
 *.egg-info
 .kube/*
