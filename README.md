@@ -19,12 +19,16 @@ docker run --rm \
        -it rosscdh/oc-bs:latest --help
 ```
 
+### Using
+
+```bash
+bs -f example.yml -p NODEPORT=33012  -p NLB_NODE_PORT_ACCOUNTWEB=33012
+# save output to a file
+bs -f example.yml -p NODEPORT=33012  -p NLB_NODE_PORT_ACCOUNTWEB=33012 -o test.json
+```
+
 ### Install locally
 
 ```bash
 python setup.py install
-bs -f example.yml -p NODEPORT=33012  -p NLB_NODE_PORT_ACCOUNTWEB=33012
-
-# save output to a file
-bs -f example.yml -p NODEPORT=33012  -p NLB_NODE_PORT_ACCOUNTWEB=33012 -o test.json
 ```
