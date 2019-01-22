@@ -1,7 +1,7 @@
 .PHONY: build login push run shell
 
 NAME     := 'rosscdh/oc-bs'
-REGISTRY := 'hub.docker.com'
+REGISTRY := 'docker.com'
 TAG      := $$(git log -1 --pretty=%h)
 VERSION  := ${NAME}:${TAG}
 LATEST   := ${NAME}:latest
@@ -27,8 +27,8 @@ login:
 	docker login -u ${DOCKER_USER} -p ${DOCKER_PASSWORD} ${REGISTRY}
 
 push:
-	docker push ${REGISTRY}/${LATEST}
-	docker push ${REGISTRY}/${VERSION}
+	docker push ${LATEST}
+	docker push ${VERSION}
 
 shell:
 	docker run --rm \
