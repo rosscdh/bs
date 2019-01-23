@@ -1,21 +1,21 @@
 apiVersion: v1
 kind: Template
 metadata:
-  name: mtls-proxy-nlb-service
+  name: superservice-proxy-nlb-service
   annotations:
-    openshift.io/display-name: "MTLS Proxy NLB services"
+    openshift.io/display-name: "superservice Proxy NLB services"
     description: "This template adds the NLB services for the HDS"
     iconClass: "fa fa-key"
-    tags: "operations,template,mtls,mtls-proxy,nlb"
-    template.openshift.io/provider-display-name: "Mindcurv"
+    tags: "operations,template,superservice,superservice-proxy,nlb"
+    template.openshift.io/provider-display-name: "example-company"
 objects:
 - kind: Service
-  # Required to expose mtls to the AWS-NLB on a specific port
+  # Required to expose superservice to the AWS-NLB on a specific port
   apiVersion: v1
   metadata:
     labels:
-      app: mtls-proxy
-    name: mtls-proxy-nlb
+      app: superservice-proxy
+    name: superservice-proxy-nlb
   spec:
     externalTrafficPolicy: Local
     ports:
@@ -25,19 +25,19 @@ objects:
       protocol: TCP
       targetPort: 8443
     selector:
-      app: mtls-proxy
-      deploymentconfig: mtls-proxy
+      app: superservice-proxy
+      deploymentconfig: superservice-proxy
     sessionAffinity: None
     type: NodePort
   status:
     loadBalancer: {}
 - kind: Service
-  # Required to expose mtls-accountweb to the AWS-NLB on a specific port
+  # Required to expose superservice-accountweb to the AWS-NLB on a specific port
   apiVersion: v1
   metadata:
     labels:
-      app: mtls-proxy
-    name: mtls-proxy-nlb-accountweb
+      app: superservice-proxy
+    name: superservice-proxy-nlb-accountweb
   spec:
     externalTrafficPolicy: Local
     ports:
@@ -47,8 +47,8 @@ objects:
       protocol: TCP
       targetPort: 9443
     selector:
-      app: mtls-proxy
-      deploymentconfig: mtls-proxy
+      app: superservice-proxy
+      deploymentconfig: superservice-proxy
     sessionAffinity: None
     type: NodePort
   status:
