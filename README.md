@@ -16,11 +16,17 @@ make shell
 # or
 docker pull rosscdh/oc-bs:latest
 docker run --rm \
-       -v ${PWD}:/app \
+       -v ${PWD}:/src \
        -it rosscdh/oc-bs:latest --help
 ```
 
 ### Using
+
+```bash
+docker run --rm \
+       -v ${PWD}/example.yml:/src/example.yml \
+       -it rosscdh/oc-bs:latest -f /src/example.yaml -p NODEPORT=33012  -p NLB_NODE_PORT_ACCOUNTWEB=33012
+```
 
 ```bash
 bs -f example.yml -p NODEPORT=33012  -p NLB_NODE_PORT_ACCOUNTWEB=33012
