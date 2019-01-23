@@ -22,6 +22,12 @@ docker run --rm \
 
 ### Using
 
+Now you have access to all of jinja2 powerful filters as well as some base64 encode/decode built for openshift secrets
+
+http://jinja.pocoo.org/docs/2.10/templates/
+
+Simply output `{{ variabels | filter }}` in your yaml files.
+
 ```bash
 docker run --rm \
        -v ${PWD}/example.yml:/src/example.yml \
@@ -39,3 +45,7 @@ bs -f example.yml -p NODEPORT=33012  -p NLB_NODE_PORT_ACCOUNTWEB=33012 -o test.j
 ```bash
 python setup.py install
 ```
+
+### TODO
+
+* allow a `-c path/to/context.yaml` for loading in secrets and context variables so you dont have to pass `-p KEY=VALUE in which is kinda ugly`
